@@ -29,13 +29,19 @@ const { NotImplementedError } = require('../extensions/index.js');
     result.push([])
     for (let j = 0; j < matrix[0].length; j++) {
       let sum = 0;
-      for (let t = -1; t <= 1; t++) {
-        for (let p = -1; p <= 1; p++) {
-          if(t === 0 && p === 0) {continue}
-          if (matrix[i + t] && matrix[i + t][j + p] && matrix[i + t][j + p] === true) {sum++}
-          }
-        }
-      result[i].push(sum)
+        if (matrix[i][j-1] === true) {sum++}
+        if (matrix[i][j+1] === true) {sum++}
+      if (i > 0) {
+        if (matrix[i-1][j-1] === true) {sum++}
+        if (matrix[i-1][j] === true) {sum++}
+        if (matrix[i-1][j+1] === true) {sum++}
+      }
+      if (i < matrix.length - 1) {
+        if (matrix[i+1][j-1] === true) {sum++}
+        if (matrix[i+1][j] === true) {sum++}
+        if (matrix[i+1][j+1] === true) {sum++}
+      }
+      result[i].push(sum);
     }
   }
   return result
